@@ -96,6 +96,7 @@ function M.with_config(config)
         illuminate = true,
         lsp_semantic = true,
         mini_completion = true,
+        neotree = true,
     }, config or M.config or {})
 end
 
@@ -137,6 +138,7 @@ function M.setup(colors, config)
     end
     M.colors                              = colors or base16_colorscheme or
         M.colorschemes['schemer-dark']
+
     local hi                              = M.highlight
 
     -- Vim editor colors
@@ -422,55 +424,41 @@ function M.setup(colors, config)
         hi.rainbowcol7 = { guifg = M.colors.base0E }
     end
 
-    hi.NvimInternalError = { guifg = M.colors.base00, guibg = M.colors.base08, gui = 'none', guisp = nil }
+    hi.NvimInternalError     = { guifg = M.colors.base00, guibg = M.colors.base08, gui = 'none', guisp = nil }
 
-    hi.NormalFloat       = { guifg = M.colors.base05, guibg = M.colors.base00, gui = nil, guisp = nil }
-    hi.FloatBorder       = { guifg = M.colors.base05, guibg = M.colors.base00, gui = nil, guisp = nil }
-    hi.NormalNC          = { guifg = M.colors.base05, guibg = M.colors.base00, gui = nil, guisp = nil }
-    hi.TermCursor        = { guifg = M.colors.base00, guibg = M.colors.base05, gui = 'none', guisp = nil }
-    hi.TermCursorNC      = { guifg = M.colors.base00, guibg = M.colors.base05, gui = nil, guisp = nil }
+    hi.NormalFloat           = { guifg = M.colors.base05, guibg = M.colors.base00, gui = nil, guisp = nil }
+    hi.FloatBorder           = { guifg = M.colors.base05, guibg = M.colors.base00, gui = nil, guisp = nil }
+    hi.NormalNC              = { guifg = M.colors.base05, guibg = M.colors.base00, gui = nil, guisp = nil }
+    hi.TermCursor            = { guifg = M.colors.base00, guibg = M.colors.base05, gui = 'none', guisp = nil }
+    hi.TermCursorNC          = { guifg = M.colors.base00, guibg = M.colors.base05, gui = nil, guisp = nil }
 
-    hi.User1             = { guifg = M.colors.base08, guibg = M.colors.base02, gui = 'none', guisp = nil }
-    hi.User2             = { guifg = M.colors.base0E, guibg = M.colors.base02, gui = 'none', guisp = nil }
-    hi.User3             = { guifg = M.colors.base05, guibg = M.colors.base02, gui = 'none', guisp = nil }
-    hi.User4             = { guifg = M.colors.base0C, guibg = M.colors.base02, gui = 'none', guisp = nil }
-    hi.User5             = { guifg = M.colors.base05, guibg = M.colors.base02, gui = 'none', guisp = nil }
-    hi.User6             = { guifg = M.colors.base05, guibg = M.colors.base01, gui = 'none', guisp = nil }
-    hi.User7             = { guifg = M.colors.base05, guibg = M.colors.base02, gui = 'none', guisp = nil }
-    hi.User8             = { guifg = M.colors.base00, guibg = M.colors.base02, gui = 'none', guisp = nil }
-    hi.User9             = { guifg = M.colors.base00, guibg = M.colors.base02, gui = 'none', guisp = nil }
+    hi.User1                 = { guifg = M.colors.base08, guibg = M.colors.base02, gui = 'none', guisp = nil }
+    hi.User2                 = { guifg = M.colors.base0E, guibg = M.colors.base02, gui = 'none', guisp = nil }
+    hi.User3                 = { guifg = M.colors.base05, guibg = M.colors.base02, gui = 'none', guisp = nil }
+    hi.User4                 = { guifg = M.colors.base0C, guibg = M.colors.base02, gui = 'none', guisp = nil }
+    hi.User5                 = { guifg = M.colors.base05, guibg = M.colors.base02, gui = 'none', guisp = nil }
+    hi.User6                 = { guifg = M.colors.base05, guibg = M.colors.base01, gui = 'none', guisp = nil }
+    hi.User7                 = { guifg = M.colors.base05, guibg = M.colors.base02, gui = 'none', guisp = nil }
+    hi.User8                 = { guifg = M.colors.base00, guibg = M.colors.base02, gui = 'none', guisp = nil }
+    hi.User9                 = { guifg = M.colors.base00, guibg = M.colors.base02, gui = 'none', guisp = nil }
 
-    hi.TreesitterContext = { guifg = nil, guibg = M.colors.base01, gui = 'italic', guisp = nil }
+    hi.TreesitterContext     = { guifg = nil, guibg = M.colors.base01, gui = 'italic', guisp = nil }
 
-    if M.config.telescope then
-        if not M.config.telescope_borders and hex_re:match_str(M.colors.base00) and hex_re:match_str(M.colors.base01) and
-            hex_re:match_str(M.colors.base02) then
-            local darkerbg           = darken(M.colors.base00, 0.1)
-            local darkercursorline   = darken(M.colors.base01, 0.1)
-            local darkerstatusline   = darken(M.colors.base02, 0.1)
-            hi.TelescopeBorder       = { guifg = darkerbg, guibg = darkerbg, gui = nil, guisp = nil }
-            hi.TelescopePromptBorder = { guifg = darkerstatusline, guibg = darkerstatusline, gui = nil, guisp = nil }
-            hi.TelescopePromptNormal = { guifg = M.colors.base05, guibg = darkerstatusline, gui = nil, guisp = nil }
-            hi.TelescopePromptPrefix = { guifg = M.colors.base08, guibg = darkerstatusline, gui = nil, guisp = nil }
-            hi.TelescopeNormal       = { guifg = nil, guibg = darkerbg, gui = nil, guisp = nil }
-            hi.TelescopePreviewTitle = { guifg = darkercursorline, guibg = M.colors.base0B, gui = nil, guisp = nil }
-            hi.TelescopePromptTitle  = { guifg = darkercursorline, guibg = M.colors.base08, gui = nil, guisp = nil }
-            hi.TelescopeResultsTitle = { guifg = darkerbg, guibg = darkerbg, gui = nil, guisp = nil }
-            hi.TelescopeSelection    = { guifg = nil, guibg = darkerstatusline, gui = nil, guisp = nil }
-            hi.TelescopePreviewLine  = { guifg = nil, guibg = M.colors.base01, gui = 'none', guisp = nil }
-        else
-            hi.TelescopeBorder       = { guifg = M.colors.base05, guibg = M.colors.base00, gui = nil, guisp = nil }
-            hi.TelescopePromptBorder = { guifg = M.colors.base05, guibg = M.colors.base00, gui = nil, guisp = nil }
-            hi.TelescopePromptNormal = { guifg = M.colors.base05, guibg = M.colors.base00, gui = nil, guisp = nil }
-            hi.TelescopePromptPrefix = { guifg = M.colors.base05, guibg = M.colors.base00, gui = nil, guisp = nil }
-            hi.TelescopeNormal       = { guifg = nil, guibg = M.colors.base00, gui = nil, guisp = nil }
-            hi.TelescopePreviewTitle = { guifg = M.colors.base01, guibg = M.colors.base0B, gui = nil, guisp = nil }
-            hi.TelescopePromptTitle  = { guifg = M.colors.base01, guibg = M.colors.base08, gui = nil, guisp = nil }
-            hi.TelescopeResultsTitle = { guifg = M.colors.base05, guibg = M.colors.base00, gui = nil, guisp = nil }
-            hi.TelescopeSelection    = { guifg = nil, guibg = M.colors.base01, gui = nil, guisp = nil }
-            hi.TelescopePreviewLine  = { guifg = nil, guibg = M.colors.base01, gui = 'none', guisp = nil }
-        end
-    end
+    local darkerbg           = darken(M.colors.base00, 0.1)
+    local darkercursorline   = darken(M.colors.base01, 0.1)
+    local darkerstatusline   = darken(M.colors.base02, 0.1)
+
+    hi.TelescopeBorder       = { guifg = M.colors.base07, guibg = darkerbg, gui = nil, guisp = nil }
+    hi.TelescopePromptBorder = { guifg = M.colors.base07, guibg = darkerstatusline, gui = nil, guisp = nil }
+
+    hi.TelescopePromptNormal = { guifg = M.colors.base05, guibg = darkerstatusline, gui = nil, guisp = nil }
+    hi.TelescopePromptPrefix = { guifg = M.colors.base08, guibg = darkerstatusline, gui = nil, guisp = nil }
+    hi.TelescopeNormal       = { guifg = nil, guibg = darkerbg, gui = nil, guisp = nil }
+    hi.TelescopePreviewTitle = { guifg = darkercursorline, guibg = M.colors.base0B, gui = nil, guisp = nil }
+    hi.TelescopePromptTitle  = { guifg = darkercursorline, guibg = M.colors.base08, gui = nil, guisp = nil }
+    hi.TelescopeResultsTitle = { guifg = darkerbg, guibg = darkerbg, gui = nil, guisp = nil }
+    hi.TelescopeSelection    = { guifg = nil, guibg = darkerstatusline, gui = nil, guisp = nil }
+    hi.TelescopePreviewLine  = { guifg = nil, guibg = M.colors.base01, gui = 'none', guisp = nil }
 
     if M.config.notify then
         hi.NotifyERRORBorder = { guifg = M.colors.base08, guibg = nil, gui = 'none', guisp = nil }
@@ -574,6 +562,18 @@ function M.setup(colors, config)
         hi.MiniCompletionActiveParameter = 'CursorLine'
     end
 
+    -- INFO: NeoTree
+    if M.config.neotree then
+        hi['NeoTreeDirectoryIcon'] = { guifg = M.colors.base0A, guibg = M.colors.base00, gui = nil, guisp = nil }
+    end
+
+    -- INFO: Dashboard
+    hi.DashboardHeader      = { guifg = M.colors.base0B }
+    hi.DashboardFooter      = { guifg = M.colors.base0D }
+
+    hi.DashboardKey         = { guifg = M.colors.base0D, guibg = M.colors.base00, gui = nil, guisp = nil }
+    hi.DashboardDesc        = { guifg = M.colors.base07, guibg = M.colors.base00, gui = nil, guisp = nil }
+    hi.DashboardIcon        = { guifg = M.colors.base07, guibg = M.colors.base00, gui = nil, guisp = nil }
 
     vim.g.terminal_color_0  = M.colors.base00
     vim.g.terminal_color_1  = M.colors.base08
